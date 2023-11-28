@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AuthorizePaymentController;
+use App\Http\Controllers\PaymentController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +19,11 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/pay',[AuthorizePaymentController::class , 'pay'])->name('pay');
+Route::post('/dopay/online', [AuthorizePaymentController::class , 'handleonlinepay'])->name('dopay.online');
+
+Route::get('/payment', function () {
+    return view('payment');
+});
+Route::post('/process-payment', [PaymentController::class, 'processPayment'])->name('process.payment');
